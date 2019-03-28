@@ -42,6 +42,7 @@ function build() {
 
       if(!Game.spawns['Spawn1'].spawning) {
          if (rolename != "harvester" && !harvesterBuilt()) {
+            console.log("Skipping build of " + role.name + " in order to prioritize harvester");
             break;
          }
          if(creeps.length < role.quantity) {
