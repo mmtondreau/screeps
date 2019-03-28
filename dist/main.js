@@ -36,20 +36,21 @@ function harvesterBuilt() {
 }
 function build() {
    for (var rolename in ROLES) {
-      if (rolename != "harvester" && !harvesterBuilt()) {
-         break;
-      }
-      var role = ROLES[rolename];
-      var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
-      console.log(role.name + ': ' + creeps.length);
+      if(!Game.spawns['Spawn1'].spawning) {
+         if (rolename != "harvester" && !harvesterBuilt()) {
+            break;
+         }
+         var role = ROLES[rolename];
+         var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
+         console.log(role.name + ': ' + creeps.length);
 
-      if(creeps.length < role.quantity) {
-         var newName = role.name + Game.time;
-         console.log('Spawning new '+ role.name +': ' + newName);
-         Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
-            {memory: {role: role.name}});
+         if(creeps.length < role.quantity) {
+            var newName = role.name + Game.time;
+            console.log('Spawning new '+ role.name +': ' + newName);
+            Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
+               {memory: {role: role.name}});
+         }
       }
-
       if(Game.spawns['Spawn1'].spawning) {
          var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
          Game.spawns['Spawn1'].room.visual.text(
