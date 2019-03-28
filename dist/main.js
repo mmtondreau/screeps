@@ -35,7 +35,7 @@ var ROLES = {
 function build() {
    for (var rolename in ROLES) {
       var role = ROLES[rolename];
-      var creeps == _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
+      var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
       console.log(role.name + ': ' + creeps.length);
 
       if(creeps.length < role.quantity) {
