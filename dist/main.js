@@ -14,26 +14,31 @@ function cleanup() {
 var ROLES = {
    harvester : { 
       name: "harvester",
-      quantity: 2, 
+      quantity: 5, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleHarvester.run(creep); }
    }, 
    upgrader : { 
       name: "upgrader",
-      quantity: 1, 
+      quantity: 3, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleUpgrader.run(creep); }
    }, 
    builder : {
       name: "builder",
-      quantity: 1, 
+      quantity: 3, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleBuilder.run(creep); }
    }
 }
-
+function harvesterBuilt() {
+   return _.filter(Game.creeps, (creep) => creep.memory.role == "harvester") > 0;
+}
 function build() {
    for (var rolename in ROLES) {
+      if (rolename != "harvester" && !harvesterBuilt()) {
+         break;
+      }
       var role = ROLES[rolename];
       var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
       console.log(role.name + ': ' + creeps.length);
