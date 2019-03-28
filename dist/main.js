@@ -20,13 +20,13 @@ var ROLES = {
    }, 
    upgrader : { 
       name: "upgrader",
-      quantity: 2, 
+      quantity: 1, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleUpgrader.run(creep); }
    }, 
    builder : {
       name: "builder",
-      quantity: 2, 
+      quantity: 1, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleBuilder.run(creep); }
    }
