@@ -14,19 +14,19 @@ function cleanup() {
 var ROLES = {
    harvester : { 
       name: "harvester",
-      quantity: 5, 
+      quantity: 3, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleHarvester.run(creep); }
    }, 
    upgrader : { 
       name: "upgrader",
-      quantity: 3, 
+      quantity: 2, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleUpgrader.run(creep); }
    }, 
    builder : {
       name: "builder",
-      quantity: 3, 
+      quantity: 2, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleBuilder.run(creep); }
    }
