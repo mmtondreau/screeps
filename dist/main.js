@@ -46,7 +46,7 @@ function build() {
             console.log("Skipping build of " + role.name + " in order to prioritize harvester");
             break;
          }
-         if(creeps.length < role.quantity) {
+         if(creeps.length < role.quantity && Game.spawns['Spawn1'].canCreateCreep(role.ability, newName,{})) {
             var newName = role.name + Game.time;
             console.log('Spawning new '+ role.name +': ' + newName);
             Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
