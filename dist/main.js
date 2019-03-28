@@ -2,6 +2,7 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
+
 function cleanup() {
    for(var name in Memory.creeps) {
       if(!Game.creeps[name]) {
@@ -46,12 +47,19 @@ function build() {
             console.log("Skipping build of " + role.name + " in order to prioritize harvester");
             break;
          }
-         if(creeps.length < role.quantity && Game.spawns['Spawn1'].canCreateCreep(role.ability, newName,{})) {
-            var newName = role.name + Game.time;
-            console.log('Spawning new '+ role.name +': ' + newName);
-            Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
-               {memory: {role: role.name}});
+         if(creeps.length < role.quantity){
+            if (Game.spawns['Spawn1'].canCreateCreep(role.ability, newName,{})) {
+               var newName = role.name + Game.time;
+               console.log('Spawning new '+ role.name +': ' + newName);
+               Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
+                  {memory: {role: role.name}});
+            } else {
+               console.log("cannot create " + role.name);
+            }
+         } else {
+            console.log("at capacity for " + role.name);
          }
+
       }
       if(Game.spawns['Spawn1'].spawning) {
          var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
