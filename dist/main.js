@@ -14,7 +14,7 @@ function cleanup() {
 var ROLES = {
    harvester : { 
       name: "harvester",
-      quantity: 3, 
+      quantity: 2, 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleHarvester.run(creep); }
    }, 
@@ -63,7 +63,6 @@ function build() {
 }
 
 module.exports.loop = function () {
-
    cleanup();
    build();
 
