@@ -32,10 +32,11 @@ var ROLES = {
    }
 }
 function harvesterBuilt() {
-   return _.filter(Game.creeps, (creep) => creep.memory.role == "harvester") > 0;
+   return _.filter(Game.creeps, (creep) => creep.memory.role == "harvester").length > 0;
 }
 function build() {
    for (var rolename in ROLES) {
+      console.log("Build - " + rolename);
       var role = ROLES[rolename];
       var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
       console.log(role.name + ': ' + creeps.length);
