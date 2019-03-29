@@ -40,6 +40,33 @@ function harvesterBuilt() {
    return ret;
 }
 
+function printSpawnCreep(returnCode) {
+   switch (returnCode) {
+   case OK: 
+      console.log("Spawn - OK");
+      break;
+   case ERR_NOT_OWNER:
+      console.log("Spawn - ERR_NOT_OWNER");
+      break;
+   case ERR_NAME_EXISTS:
+      console.log("Spawn - ERR_NAME_EXISTS");
+      break;
+   case ERR_BUSY:
+      console.log("Spawn - ERR_BUSY");
+      break;
+   case ERR_NOT_ENOUGH_ENERGY:
+      console.log("Spawn - ERR_NOT_ENOUGH_ENERGY");
+      break;
+   case ERR_INVALID_ARGS:
+      console.log("Spawn - ERR_INVALID_ARGS");
+      break;
+   case ERR_RCL_NOT_ENOUGH:
+      console.log("Spawn - ERR_RCL_NOT_ENOUGH");
+      break;
+   }
+
+}
+
 function build() {
    var buildRole = null, buildName;;
    for (var rolename in ROLES) {
@@ -68,30 +95,8 @@ function build() {
    }
    if (buildRole != null) {
       console.log('Spawning new '+ buildRole.name +': ' + buildName);
-      switch (Game.spawns['Spawn1'].spawnCreep(buildRole.ability, buildName,
-         {memory: {role: buildRole.name}})) {
-      case OK: 
-         console.log("Spawn - OK");
-         break;
-      case ERR_NOT_OWNER:
-         console.log("Spawn - ERR_NOT_OWNER");
-         break;
-      case ERR_NAME_EXISTS:
-         console.log("Spawn - ERR_NAME_EXISTS");
-         break;
-      case ERR_BUSY:
-         console.log("Spawn - ERR_BUSY");
-         break;
-      case ERR_NOT_ENOUGH_ENERGY:
-         console.log("Spawn - ERR_NOT_ENOUGH_ENERGY");
-         break;
-      case ERR_INVALID_ARGS:
-         console.log("Spawn - ERR_INVALID_ARGS");
-         break;
-      case ERR_RCL_NOT_ENOUGH:
-         console.log("Spawn - ERR_RCL_NOT_ENOUGH");
-         break;
-      }
+      printSpawnCreep(Game.spawns['Spawn1'].spawnCreep(buildRole.ability, buildName,
+         {memory: {role: buildRole.name}})) 
    }
 }
 var loop = 0;
