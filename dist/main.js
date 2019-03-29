@@ -41,6 +41,7 @@ function harvesterBuilt() {
 }
 
 function build() {
+   var buildRole = null, buildName;;
    for (var rolename in ROLES) {
       console.log("Build - " + rolename);
       var role = ROLES[rolename];
@@ -52,34 +53,10 @@ function build() {
             console.log("Skipping build of " + role.name + " in order to prioritize harvester");
          } else if (creeps.length < role.quantity) {
             console.log("creeps not at capacity for " + role.name);
-            var newName = role.name + Game.time;
-            if (Game.spawns['Spawn1'].spawnCreep(role.ability, newName,{dryRun:true}) == OK) {
-               console.log('Spawning new '+ role.name +': ' + newName);
-               switch (Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
-                  {memory: {role: role.name}})) {
-               case OK: 
-                  console.log("Spawn - OK");
-                  break;
-               case ERR_NOT_OWNER:
-                  console.log("Spawn - ERR_NOT_OWNER");
-                  break;
-               case ERR_NAME_EXISTS:
-                  console.log("Spawn - ERR_NAME_EXISTS");
-                  break;
-               case ERR_BUSY:
-                  console.log("Spawn - ERR_BUSY");
-                  break;
-               case ERR_NOT_ENOUGH_ENERGY:
-                  console.log("Spawn - ERR_NOT_ENOUGH_ENERGY");
-                  break;
-               case ERR_INVALID_ARGS:
-                  console.log("Spawn - ERR_INVALID_ARGS");
-                  break;
-               case ERR_RCL_NOT_ENOUGH:
-                  console.log("Spawn - ERR_RCL_NOT_ENOUGH");
-                  break;
-
-               }
+            buildName = role.name + Game.time;
+            if (Game.spawns['Spawn1'].spawnCreep(role.ability, buildName,{dryRun:true}) == OK) {
+               console.log('Spawning new '+ role.name +': ' + buildName);
+               buildRole = role;
             } else {
                console.log("cannot create " + role.name);
             }
@@ -87,6 +64,32 @@ function build() {
             console.log("at capacity for " + role.name);
          }
 
+      }
+   }
+   if (buildRole != null) {
+      switch (Game.spawns['Spawn1'].spawnCreep(role.ability, buildName,
+         {memory: {role: role.name}})) {
+      case OK: 
+         console.log("Spawn - OK");
+         break;
+      case ERR_NOT_OWNER:
+         console.log("Spawn - ERR_NOT_OWNER");
+         break;
+      case ERR_NAME_EXISTS:
+         console.log("Spawn - ERR_NAME_EXISTS");
+         break;
+      case ERR_BUSY:
+         console.log("Spawn - ERR_BUSY");
+         break;
+      case ERR_NOT_ENOUGH_ENERGY:
+         console.log("Spawn - ERR_NOT_ENOUGH_ENERGY");
+         break;
+      case ERR_INVALID_ARGS:
+         console.log("Spawn - ERR_INVALID_ARGS");
+         break;
+      case ERR_RCL_NOT_ENOUGH:
+         console.log("Spawn - ERR_RCL_NOT_ENOUGH");
+         break;
       }
    }
 }
