@@ -26,22 +26,22 @@ var logger = {
       frame.pop();
    },
    debug: function(stmt) {
-      if (logger.logLevel() >= LOG_LEVELS.DEBUG) {
+      if (logger.logLevel() <= LOG_LEVELS.DEBUG) {
          console.log("[DEBUG] " + frame[frame.length-1] + " - " + stmt);
       }
    },
    trace: function(stmt) {
-      if (logger.logLevel() >= LOG_LEVELS.TRACE) {
+      if (logger.logLevel() <= LOG_LEVELS.TRACE) {
          console.log("[TRACE] " + frame[frame.length-1] + " - " + stmt);
       }
    },
    info: function(stmt) {
-      if (logger.logLevel() >= LOG_LEVELS.INFO) {
+      if (logger.logLevel() <= LOG_LEVELS.INFO) {
          console.log("[INFO] " + frame[frame.length-1] + " - " + stmt);
       }
    },
    warn: function(stmt) {
-      if (logger.logLevel() >= LOG_LEVELS.WARN) {
+      if (logger.logLevel() <= LOG_LEVELS.WARN) {
          console.log("[WARN] " + frame[frame.length-1] + " - " + stmt);
       }
    },
