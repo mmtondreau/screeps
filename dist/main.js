@@ -15,7 +15,7 @@ LOG_LEVELS = {
 var logger = {
    logLevel: function() {
       return LOG_LEVELS[Memory.logLevel] || 1;
-   }
+   },
    entry : function(name) {
       frame.push(name);
       logger.trace("entry");
