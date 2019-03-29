@@ -140,7 +140,7 @@ function build() {
                printSpawnCreep(ret);
             }
          } else {
-            logger.debug("at capacity for " + role.name);
+            logger.debug("at max capacity "+ role.quantity() +" for " + role.name);
          }
 
       } else {
