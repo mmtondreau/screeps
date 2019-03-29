@@ -65,19 +65,19 @@ function cleanup() {
 var ROLES = {
    harvester : { 
       name: "harvester",
-      quantity: function() { return Memory.creeps.harvester || 2} , 
+      quantity: function() { return Memory.harvesters || 2} , 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleHarvester.run(creep); }
    }, 
    upgrader : { 
       name: "upgrader",
-      quantity: function() { return Memory.creeps.upgrader || 2} , 
+      quantity: function() { return Memory.upgraders || 2} , 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleUpgrader.run(creep); }
    }, 
    builder : {
       name: "builder",
-      quantity: function() { return Memory.creeps.builder || 2} , 
+      quantity: function() { return Memory.builders || 2} , 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleBuilder.run(creep); }
    }
