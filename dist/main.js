@@ -94,7 +94,7 @@ function build() {
       }
    }
 }
-var int loop = 0;
+var loop = 0;
 module.exports.loop = function () {
    cleanup();
    build();
