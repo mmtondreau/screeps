@@ -34,9 +34,7 @@ var ROLES = {
 }
 
 function harvesterBuilt() {
-   cleanup();
    var ret = _.filter(Game.creeps, (creep) => creep.memory.role == "harvester").length > 0;
-   console.log("harvesterBuilt - " + ret);
    return ret;
 }
 
@@ -70,10 +68,12 @@ function printSpawnCreep(returnCode) {
 function build() {
    var buildRole = null, buildName;;
    for (var rolename in ROLES) {
+      
       var role = ROLES[rolename];
       var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
 
       if(Game.spawns['Spawn1'].spawning == null) {
+         console.log("[DEBUG] Build - " + role.name);
          if (rolename != "harvester" && !harvesterBuilt()) {
             console.log("Skipping build of " + role.name + " in order to prioritize harvester");
          } else if (creeps.length < role.quantity) {
