@@ -70,10 +70,8 @@ function printSpawnCreep(returnCode) {
 function build() {
    var buildRole = null, buildName;;
    for (var rolename in ROLES) {
-      console.log("Build - " + rolename);
       var role = ROLES[rolename];
       var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
-      console.log(role.name + ': ' + creeps.length);
 
       if(Game.spawns['Spawn1'].spawning == null) {
          if (rolename != "harvester" && !harvesterBuilt()) {
