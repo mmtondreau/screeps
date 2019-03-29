@@ -80,12 +80,13 @@ function build() {
             console.log("Skipping build of " + role.name + " in order to prioritize harvester");
          } else if (creeps.length < role.quantity) {
             console.log("creeps not at capacity for " + role.name);
-            buildName = role.name + Game.time;
-            if (Game.spawns['Spawn1'].spawnCreep(role.ability, buildName,{dryRun:true}) == OK) {
+            buildName = role.name + Game.time;                                                          
+            var ret;
+            if ((ret = Game.spawns['Spawn1'].spawnCreep(role.ability, buildName,{dryRun:true})) == OK) {
                console.log('Queueing new '+ role.name +': ' + buildName);
                buildRole = role;
             } else {
-               console.log("cannot create " + role.name);
+               printSpawnCreep(ret);
             }
          } else {
             console.log("at capacity for " + role.name);
