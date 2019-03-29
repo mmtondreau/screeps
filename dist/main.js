@@ -55,7 +55,7 @@ function build() {
             console.log("creeps not at capacity for " + role.name);
             buildName = role.name + Game.time;
             if (Game.spawns['Spawn1'].spawnCreep(role.ability, buildName,{dryRun:true}) == OK) {
-               console.log('Spawning new '+ role.name +': ' + buildName);
+               console.log('Queueing new '+ role.name +': ' + buildName);
                buildRole = role;
             } else {
                console.log("cannot create " + role.name);
@@ -67,8 +67,9 @@ function build() {
       }
    }
    if (buildRole != null) {
-      switch (Game.spawns['Spawn1'].spawnCreep(role.ability, buildName,
-         {memory: {role: role.name}})) {
+      console.log('Spawning new '+ buildRole.name +': ' + buildName);
+      switch (Game.spawns['Spawn1'].spawnCreep(buildRole.ability, buildName,
+         {memory: {role: buildRole.name}})) {
       case OK: 
          console.log("Spawn - OK");
          break;
@@ -93,7 +94,7 @@ function build() {
       }
    }
 }
-
+var int loop = 0;
 module.exports.loop = function () {
    cleanup();
    build();
@@ -102,4 +103,5 @@ module.exports.loop = function () {
       var creep = Game.creeps[name];
       ROLES[creep.memory.role].run(creep);
    }
+   ++loop;
 }
