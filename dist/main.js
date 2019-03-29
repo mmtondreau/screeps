@@ -49,7 +49,7 @@ function build() {
          }
          if(creeps.length < role.quantity){
             var newName = role.name + Game.time;
-            if (Game.spawns['Spawn1'].canCreateCreep(role.ability, newName,{})) {
+            if (Game.spawns['Spawn1'].spawnCreep(role.ability, newName,{dryRun:true})) {
                console.log('Spawning new '+ role.name +': ' + newName);
                Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
                   {memory: {role: role.name}});
