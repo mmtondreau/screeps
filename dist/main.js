@@ -124,7 +124,7 @@ function build() {
    for (var rolename in ROLES) {
       var role = ROLES[rolename];
       var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
-      logger.debug(rolename + " count: " + creeps);
+      logger.debug(rolename + " count: " + creeps.length);
 
       if(Game.spawns['Spawn1'].spawning == null) {
          if (rolename != "harvester" && !harvesterBuilt()) {
