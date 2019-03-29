@@ -55,8 +55,31 @@ function build() {
             var newName = role.name + Game.time;
             if (Game.spawns['Spawn1'].spawnCreep(role.ability, newName,{dryRun:true}) == OK) {
                console.log('Spawning new '+ role.name +': ' + newName);
-               Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
-                  {memory: {role: role.name}});
+               switch (Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
+                  {memory: {role: role.name}})) {
+               case OK: 
+                  console.log("Spawn - OK");
+                  break;
+               case ERR_NOT_OWNER:
+                  console.log("Spawn - ERR_NOT_OWNER");
+                  break;
+               case ERR_NAME_EXISTS:
+                  console.log("Spawn - ERR_NAME_EXISTS");
+                  break;
+               case ERR_BUSY:
+                  console.log("Spawn - ERR_BUSY");
+                  break;
+               case ERR_NOT_ENOUGH_ENERGY:
+                  console.log("Spawn - ERR_NOT_ENOUGH_ENERGY");
+                  break;
+               case ERR_INVALID_ARGS:
+                  console.log("Spawn - ERR_INVALID_ARGS");
+                  break;
+               case ERR_RCL_NOT_ENOUGH:
+                  console.log("Spawn - ERR_RCL_NOT_ENOUGH");
+                  break;
+
+               }
             } else {
                console.log("cannot create " + role.name);
             }
