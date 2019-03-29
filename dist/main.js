@@ -65,19 +65,19 @@ function cleanup() {
 var ROLES = {
    harvester : { 
       name: "harvester",
-      quantity: 2, 
+      quantity: function() { return Memory.creeps.harvester || 2} , 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleHarvester.run(creep); }
    }, 
    upgrader : { 
       name: "upgrader",
-      quantity: 2, 
+      quantity: function() { return Memory.creeps.upgrader || 2} , 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleUpgrader.run(creep); }
    }, 
    builder : {
       name: "builder",
-      quantity: 2, 
+      quantity: function() { return Memory.creeps.builder || 2} , 
       ability: [WORK,CARRY,MOVE],
       run: function(creep) { roleBuilder.run(creep); }
    }
@@ -129,7 +129,7 @@ function build() {
       if(Game.spawns['Spawn1'].spawning == null) {
          if (rolename != "harvester" && !harvesterBuilt()) {
             logger.debug("Skipping build of " + role.name + " in order to prioritize harvester");
-         } else if (creeps.length < role.quantity) {
+         } else if (creeps.length < role.quantity()) {
             logger.debug("creeps not at capacity for " + role.name);
             buildName = role.name + Game.time;                                                          
             var ret;
