@@ -3,15 +3,50 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
 var frame = [];
-var logger = { 
+
+LOG_LEVELS = {
+   TRACE: 0
+   DEBUG: 1,
+   INFO: 2,
+   WARN: 3,
+   ERROR: 4
+}
+
+var logger = {
+   logLevel: function() {
+      return LOG_LEVELS[Memory.logLevel] || 1;
+   }
    entry : function(name) {
       frame.push(name);
+      logger.trace("entry");
+
    },
    exit : function(name) {
+      logger.trace("exit");
       frame.pop();
    },
    debug: function(stmt) {
-      console.log("[DEBUG] " + frame[frame.length-1] + " - " + stmt);
+      if (logger.logLevel() >= LOG_LEVELS.DEBUG) {
+         console.log("[DEBUG] " + frame[frame.length-1] + " - " + stmt);
+      }
+   },
+   trace: function(stmt) {
+      if (logger.logLevel() >= LOG_LEVELS.TRACE) {
+         console.log("[TRACE] " + frame[frame.length-1] + " - " + stmt);
+      }
+   },
+   info: function(stmt) {
+      if (logger.logLevel() >= LOG_LEVELS.INFO) {
+         console.log("[INFO] " + frame[frame.length-1] + " - " + stmt);
+      }
+   },
+   warn: function(stmt) {
+      if (logger.logLevel() >= LOG_LEVELS.WARN) {
+         console.log("[WARN] " + frame[frame.length-1] + " - " + stmt);
+      }
+   },
+   error: function(stmt) {
+      console.log("[ERROR] " + frame[frame.length-1] + " - " + stmt);
    }
 };
 
@@ -49,7 +84,9 @@ var ROLES = {
 }
 
 function harvesterBuilt() {
+   logger.entry("harvesterBuilt");
    var ret = _.filter(Game.creeps, (creep) => creep.memory.role == "harvester").length > 0;
+   logger.exit();
    return ret;
 }
 
@@ -85,12 +122,11 @@ function build() {
    logger.entry("build");
    var buildRole = null, buildName;;
    for (var rolename in ROLES) {
-      
       var role = ROLES[rolename];
       var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
+      logger.debug(rolename + " count: " + creeps);
 
       if(Game.spawns['Spawn1'].spawning == null) {
-         logger.debug(role.name);
          if (rolename != "harvester" && !harvesterBuilt()) {
             logger.debug("Skipping build of " + role.name + " in order to prioritize harvester");
          } else if (creeps.length < role.quantity) {
@@ -107,10 +143,12 @@ function build() {
             logger.debug("at capacity for " + role.name);
          }
 
+      } else {
+         logger.trace("spawning in progress");
       }
    }
    if (buildRole != null) {
-      logger.debug('Spawning new '+ buildRole.name +': ' + buildName);
+      logger.info('Spawning new '+ buildRole.name +': ' + buildName);
       printSpawnCreep(Game.spawns['Spawn1'].spawnCreep(buildRole.ability, buildName,
          {memory: {role: buildRole.name}})) 
    }
@@ -118,6 +156,7 @@ function build() {
 }
 var loop = 0;
 module.exports.loop = function () {
+   logger.entry("loop");
    cleanup();
    build();
 
@@ -126,4 +165,5 @@ module.exports.loop = function () {
       ROLES[creep.memory.role].run(creep);
    }
    ++loop;
+   logger.exit();
 }
