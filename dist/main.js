@@ -1,6 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+var logger= require('logger');
 
 
 function cleanup() {
@@ -66,6 +67,7 @@ function printSpawnCreep(returnCode) {
 }
 
 function build() {
+   logger.entry("build");
    var buildRole = null, buildName;;
    for (var rolename in ROLES) {
       
@@ -73,21 +75,21 @@ function build() {
       var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role.name);
 
       if(Game.spawns['Spawn1'].spawning == null) {
-         console.log("[DEBUG] Build - " + role.name);
+         logger.debug(role.name);
          if (rolename != "harvester" && !harvesterBuilt()) {
-            console.log("Skipping build of " + role.name + " in order to prioritize harvester");
+            logger.debug("Skipping build of " + role.name + " in order to prioritize harvester");
          } else if (creeps.length < role.quantity) {
-            console.log("creeps not at capacity for " + role.name);
+            logger.debug("creeps not at capacity for " + role.name);
             buildName = role.name + Game.time;                                                          
             var ret;
             if ((ret = Game.spawns['Spawn1'].spawnCreep(role.ability, buildName,{dryRun:true})) == OK) {
-               console.log('Queueing new '+ role.name +': ' + buildName);
+               logger.debug('Queueing new '+ role.name +': ' + buildName);
                buildRole = role;
             } else {
                printSpawnCreep(ret);
             }
          } else {
-            console.log("at capacity for " + role.name);
+            logger.debug("at capacity for " + role.name);
          }
 
       }
@@ -97,6 +99,7 @@ function build() {
       printSpawnCreep(Game.spawns['Spawn1'].spawnCreep(buildRole.ability, buildName,
          {memory: {role: buildRole.name}})) 
    }
+   logger.exit();
 }
 var loop = 0;
 module.exports.loop = function () {
