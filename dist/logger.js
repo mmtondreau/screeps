@@ -9,7 +9,7 @@ var logger = (function Logger() {
       },
       debug: function(stmt) {
          console.log("[DEBUG] " + frame[frame.length-1] + " - " + stmt);
-      };
+      }
    }
 })();
 module.export = logger;
