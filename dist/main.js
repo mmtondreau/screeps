@@ -5,7 +5,7 @@ var roleBuilder = require('role.builder');
 var frame = [];
 
 LOG_LEVELS = {
-   TRACE: 0
+   TRACE: 0,
    DEBUG: 1,
    INFO: 2,
    WARN: 3,
