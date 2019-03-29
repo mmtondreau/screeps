@@ -48,11 +48,9 @@ function build() {
       if(!Game.spawns['Spawn1'].spawning) {
          if (rolename != "harvester" && !harvesterBuilt()) {
             console.log("Skipping build of " + role.name + " in order to prioritize harvester");
-            break;
-         }
-         if(creeps.length < role.quantity){
+         } else if (creeps.length < role.quantity) {
             var newName = role.name + Game.time;
-            if (Game.spawns['Spawn1'].spawnCreep(role.ability, newName,{dryRun:true})) {
+            if (Game.spawns['Spawn1'].spawnCreep(role.ability, newName,{dryRun:true}) == 0) {
                console.log('Spawning new '+ role.name +': ' + newName);
                Game.spawns['Spawn1'].spawnCreep(role.ability, newName,
                   {memory: {role: role.name}});
