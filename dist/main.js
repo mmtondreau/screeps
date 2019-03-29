@@ -1,6 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+
 var frame = [];
 var logger = { 
    entry : function(name) {
@@ -16,12 +17,14 @@ var logger = {
 
 
 function cleanup() {
+   logger.entry("cleanup");
    for(var name in Memory.creeps) {
       if(!Game.creeps[name]) {
          delete Memory.creeps[name];
-         console.log('Clearing non-existing creep memory:', name);
+         logger.debug('Clearing non-existing creep memory:', name);
       }
    }
+   logger.exit();
 }
 
 var ROLES = {
@@ -51,30 +54,31 @@ function harvesterBuilt() {
 }
 
 function printSpawnCreep(returnCode) {
+   logger.entry("printSpawnCreep");
    switch (returnCode) {
    case OK: 
-      console.log("Spawn - OK");
+      logger.debug("Spawn - OK");
       break;
    case ERR_NOT_OWNER:
-      console.log("Spawn - ERR_NOT_OWNER");
+      logger.debug("Spawn - ERR_NOT_OWNER");
       break;
    case ERR_NAME_EXISTS:
-      console.log("Spawn - ERR_NAME_EXISTS");
+      logger.debug("Spawn - ERR_NAME_EXISTS");
       break;
    case ERR_BUSY:
-      console.log("Spawn - ERR_BUSY");
+      logger.debug("Spawn - ERR_BUSY");
       break;
    case ERR_NOT_ENOUGH_ENERGY:
-      console.log("Spawn - ERR_NOT_ENOUGH_ENERGY");
+      logger.debug("Spawn - ERR_NOT_ENOUGH_ENERGY");
       break;
    case ERR_INVALID_ARGS:
-      console.log("Spawn - ERR_INVALID_ARGS");
+      logger.debug("Spawn - ERR_INVALID_ARGS");
       break;
    case ERR_RCL_NOT_ENOUGH:
-      console.log("Spawn - ERR_RCL_NOT_ENOUGH");
+      logger.debug("Spawn - ERR_RCL_NOT_ENOUGH");
       break;
    }
-
+   logger.exit();
 }
 
 function build() {
@@ -106,7 +110,7 @@ function build() {
       }
    }
    if (buildRole != null) {
-      console.log('Spawning new '+ buildRole.name +': ' + buildName);
+      logger.debug('Spawning new '+ buildRole.name +': ' + buildName);
       printSpawnCreep(Game.spawns['Spawn1'].spawnCreep(buildRole.ability, buildName,
          {memory: {role: buildRole.name}})) 
    }
