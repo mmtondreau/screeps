@@ -1,7 +1,18 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
-var logger = require('logger');
+var frame = [];
+var logger = { 
+   entry : function(name) {
+      frame.push(name);
+   },
+   exit : function(name) {
+      frame.pop();
+   },
+   debug: function(stmt) {
+      console.log("[DEBUG] " + frame[frame.length-1] + " - " + stmt);
+   }
+};
 
 
 function cleanup() {
