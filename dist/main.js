@@ -34,6 +34,7 @@ var ROLES = {
 }
 
 function harvesterBuilt() {
+   cleanup();
    var ret = _.filter(Game.creeps, (creep) => creep.memory.role == "harvester").length > 0;
    console.log("harvesterBuilt - " + ret);
    return ret;
