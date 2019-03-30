@@ -9,7 +9,9 @@ var roleHarvester = {
          }
          if (creep.memory.source == null) {
             var sources = creep.room.find(FIND_SOURCES);
-            creep.memory.source = sources[Math.floor(Math.random()*sources)].id;
+            if (sources.length > 0) {
+               creep.memory.source = sources[Math.floor(Math.random()*sources)].id;
+            }
          }
          var source = Game.getObjectById(creep.memory.source);
          if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
