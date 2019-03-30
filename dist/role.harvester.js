@@ -11,7 +11,6 @@ var roleHarvester = {
             var sources = creep.room.find(FIND_SOURCES);
             if (sources.length > 0) {
                var random = Math.floor(Math.random()*sources.length);
-               console.log("ramdom: " + random);
                creep.memory.source = sources[random].id;
             }
          }
