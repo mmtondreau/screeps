@@ -8,8 +8,8 @@ LOG_LEVELS = {
    WARN: 3,
    ERROR: 4
 }
-
-module.exports = {
+                        
+var logger = {
    logLevel: function() {
       return LOG_LEVELS[Memory.logLevel] || 1;
    },
@@ -47,4 +47,4 @@ module.exports = {
    }
 };
 
-
+module.exports = logger;
