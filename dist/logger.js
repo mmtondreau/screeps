@@ -32,7 +32,7 @@ Logger.prototype.trace = function(stmt) {
       console.log("[TRACE] " + this.frame[this.frame.length-1] + " - " + stmt);
    }
 }
-Logger.prototype.info: function(stmt) {
+Logger.prototype.info = function(stmt) {
    if (this.logLevel() <= this.LOG_LEVELS.INFO) {
       console.log("[INFO] " + this.frame[this.frame.length-1] + " - " + stmt);
    }
