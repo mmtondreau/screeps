@@ -9,7 +9,7 @@ var roleHarvester = {
          }
          if (creep.memory.source == null) {
             var sources = creep.room.find(FIND_SOURCES);
-            creep.memory.source = sources(Math.floor(Math.random()*sources)];
+            creep.memory.source = sources[Math.floor(Math.random()*sources)];
          }
          if(creep.harvest(creep.memory.source) == ERR_NOT_IN_RANGE) {
             creep.moveTo(creep.memory.source, {visualizePathStyle: {stroke: '#ffaa00'}});
