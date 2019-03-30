@@ -10,7 +10,9 @@ var roleHarvester = {
          if (creep.memory.source == null) {
             var sources = creep.room.find(FIND_SOURCES);
             if (sources.length > 0) {
-               creep.memory.source = sources[Math.floor(Math.random()*sources)].id;
+               var random = Math.floor(Math.random()*sources);
+               console.log("ramdom: " + random);
+               creep.memory.source = sources[random].id;
             }
          }
          var source = Game.getObjectById(creep.memory.source);
