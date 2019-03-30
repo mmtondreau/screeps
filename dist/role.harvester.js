@@ -9,10 +9,11 @@ var roleHarvester = {
          }
          if (creep.memory.source == null) {
             var sources = creep.room.find(FIND_SOURCES);
-            creep.memory.source = sources[Math.floor(Math.random()*sources)];
+            creep.memory.source = sources[Math.floor(Math.random()*sources)].id;
          }
-         if(creep.harvest(creep.memory.source) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(creep.memory.source, {visualizePathStyle: {stroke: '#ffaa00'}});
+         var source = Game.getObjectById(creep.memory.source);
+         if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
          }
       }
       else {                         
@@ -28,11 +29,12 @@ var roleHarvester = {
                }
             });
             if(targets.length > 0) {
-               creep.memory.target = targets[Math.floor(Math.random() * targets.length)];
+               creep.memory.target = targets[Math.floor(Math.random() * targets.length)].id;
             }
          } else {
-            if(creep.transfer(creep.memory.target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-               creep.moveTo(creep.memory.target, {visualizePathStyle: {stroke: '#ffffff'}});
+            var target = Game.getObjectById(creep.memory.target);
+            if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+               creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
          }
 
