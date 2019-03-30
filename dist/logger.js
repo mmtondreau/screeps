@@ -1,17 +1,17 @@
 
 function Logger() {
    this.LOG_LEVELS = {
-      TRACE: 0,
-      DEBUG: 1,
-      INFO: 2,
-      WARN: 3,
-      ERROR: 4
+      TRACE: 1,
+      DEBUG: 2,
+      INFO: 3,
+      WARN: 4,
+      ERROR: 5
    }
    this.frame = [];
 
 };                        
 Logger.prototype.logLevel = function() {
-   return this.LOG_LEVELS[Memory.logLevel] || 1;
+   return this.LOG_LEVELS[Memory.logLevel] || this.LOG_LEVELS.DEBUG;
 }
 Logger.prototype.entry = function(name) {
    this.frame.push(name);
