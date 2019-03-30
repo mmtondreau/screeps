@@ -1,8 +1,9 @@
+var logger = require('logger');
 
 var roleHarvester = {
-
    /** @param {Creep} creep **/
    run: function(creep) {
+      logger.entry("run");
       if(creep.carry.energy < creep.carryCapacity) {
          if (creep.memory.target != null) {
             creep.memory.target = null;
@@ -40,8 +41,8 @@ var roleHarvester = {
                creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
             }
          }
-
       }
+      logger.exit();
    }
 };
 
